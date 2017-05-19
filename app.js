@@ -37,7 +37,7 @@ app.get('/search', (req, res) => {
 // Ajax - Live Search
 app.post('/autocomplete', (req, res) => {
     
-    var input = req.body.name;
+    var input = req.body.input;
     
     findUsers(input, function (results) {
     	res.send(results);
