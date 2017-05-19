@@ -22,22 +22,18 @@ html
 				$(document).ready(function(){
 					$("#searchBar").keyup(function(){
 						var input = $(this).val();
-						if(input.length === 0){
-					$('#displayUser').empty();
-				} else {
-					$.post('/autocomplete', {input: name}, function (results){
-					console.log(results);
-					$('#displayUser').empty();
+						
+						$.post('/autocomplete', {input: input}, function (results){
+						$('#displayUser').empty();
 
-					if(results.length !== 0){
-						results.forEach(function (results){
-						var li = $('<li>');
-						li.html(results.firstname + " " + results.lastname);
-						$('#displayUser').append(li);
+						if(results.length !== 0){
+							results.forEach(function (results){
+							var li = $('<li>');
+							li.html(results.firstname + " " + results.lastname);
+							$('#displayUser').append(li);
+							});
+						};
 						});
-					}
-					});
-				}
 					});
 				});
 
