@@ -33,11 +33,33 @@ app.get('/', (req, res) => {
 app.get('/search', (req, res) => {
     res.render('form') // the form in PUG gets rendered to HTML
 })
-/*
+
 // Ajax - Live Search
-app.get('/search', (req, res) => {
-    res.render('form')
-})*/
+app.post('/autocomplete', (req, res) => {
+    
+    var input = req.body.input; // input of the searchbar is stored in variable input
+    
+    findUsers(input, function (results) { // the function findUsers is called, the result is being send to the pug file.
+    	res.send(results);
+    });
+
+    function findUsers(input, onComplete) {
+    	fs.readFile('./users.json', 'utf-8', (err, data) => {
+    		var user = JSON.parse(data);
+
+    		var results = [];
+
+    		// for echt element in the array from variable user there's a function assigned.
+    		user.forEach(function (users){
+    			if (users.firstname.startsWith(input) || users.lastname.startsWith(input)) {
+    				results.push(users) // if the input which is typed in starts with one of the first or last name, the user information will be pushed to the variable result. And that will be send to the pug file to show.
+    			}
+    		});
+
+    	 onComplete(results); // callback function onComplete
+    	});
+    }
+});
 
 
 
@@ -71,16 +93,6 @@ app.post('/search', (req, res) => {
 	});
 });
 
-
-/*// test to see whether the form works:
-    console.log("request.body.firstname in app.post('/search')")
-    console.log(req.body.firstname)
-    if(req.body.firstname === "stephanie"){
-        res.send('logged in!')
-    }
-    else{
-        res.send('post request received')
-    }*/
 
 // renders a page with three forms on it (first name, last name, and email) that allows you to add new users to the users.json file.
 	

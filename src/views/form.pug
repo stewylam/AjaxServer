@@ -1,18 +1,38 @@
 doctype html
 html
 	head
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
 	body
-		a(class='button' href='http://localhost:8080') Home
+		a(class='button' href='/') Home
 		<br />
 		<br />
-		a(class='button' href='http://localhost:8080/adduser') Add User
+		a(class='button' href='/adduser') Add User
 		<br />
 		<br />
 		h2 Search for User
 		p Type in the first or last name of user:
-		form(action='/search', method='post')
+		form(action='/search', method='post', autocomplete='off')
 			p First or Last Name:
-			input(type='text', name='name')
+			input(type='text', id='searchBar', name='name')
 			br
 			br
 			input(type='submit', value='Search')
+		div(id='displayUser')
+			script.
+				$(document).ready(function(){ //- starts when the document is finished loading
+					$("#searchBar").keyup(function(){ //- When a key is pressed a function will be called.
+						var input = $(this).val(); //- the value of id searchBar will be stored to input
+						
+						$.post('/autocomplete', {input: input}, function (results){ //- Post request is connected with /autocomplete link.
+						$('#displayUser').empty(); // - Keeps the div #displayUser empty, otherwise the result will print out under neath each other.
+
+						results.forEach(function (results){ //- echt result will be printed out
+						var li = $('<li>'); //- jQuery list element is stored in variable li
+						li.html(results.firstname + " " + results.lastname); //- the result will be printed as a list in the HTML document
+						$('#displayUser').append(li); //- the list items will be added to the div #displayUser
+						});
+						});
+					});
+				});
+
+

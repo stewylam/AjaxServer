@@ -2,16 +2,16 @@ doctype html
 html
 	head
 	body
-		a(class='button' href='http://localhost:8080') Home
+		a(class='button' href='/') Home
 		<br />
 		<br />
-		a(class='button' href='http://localhost:8080/search') Search for User
+		a(class='button' href='/search') Search for User
 		<br />
 		<br />
 		h2 Add User
 		p Fill out the form
 		br
-		form(action='/adduser', method='post') 
+		form(action='/adduser', method='post', autocomplete='off') 
 			p First Name:
 			input(type='text', name='firstname')
 			br
