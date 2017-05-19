@@ -1,18 +1,44 @@
 doctype html
 html
 	head
+		script(src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.0.min.js')
 	body
-		a(class='button' href='http://localhost:8080') Home
+		a(class='button' href='/') Home
 		<br />
 		<br />
-		a(class='button' href='http://localhost:8080/adduser') Add User
+		a(class='button' href='/adduser') Add User
 		<br />
 		<br />
 		h2 Search for User
 		p Type in the first or last name of user:
-		form(action='/search', method='post')
+		form(action='/search', method='post', autocomplete='off')
 			p First or Last Name:
-			input(type='text', name='name')
+			input(type='text', id='searchBar', name='name')
 			br
 			br
 			input(type='submit', value='Search')
+		div(id='displayUser')
+		script.
+			$(document).ready(function(){
+				$("#searchBar").keyup(function() {
+					
+					var input = $(this).val();
+					
+					if(input.length === 0) {
+						$('#displayUser').empty();
+					} else {
+						$.post('/autocomplete', {input: input}, function (results){
+							console.log(results);
+					$('#displayUser').empty();
+						});
+					};
+				});	
+			
+					if(results.length !== 0) {
+						results.forEach(function (results) {
+						var li = $('<li>');
+						li.html(results.firstname + " " + results.lastname);
+						$('#displayUser').append(li);
+						});
+					};	
+			});
