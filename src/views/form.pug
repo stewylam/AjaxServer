@@ -19,20 +19,18 @@ html
 			input(type='submit', value='Search')
 		div(id='displayUser')
 			script.
-				$(document).ready(function(){
-					$("#searchBar").keyup(function(){
-						var input = $(this).val();
+				$(document).ready(function(){ //- starts when the document is finished loading
+					$("#searchBar").keyup(function(){ //- When a key is pressed a function will be called.
+						var input = $(this).val(); //- the value of id searchBar will be stored to input
 						
-						$.post('/autocomplete', {input: input}, function (results){
-						$('#displayUser').empty();
+						$.post('/autocomplete', {input: input}, function (results){ //- Post request is connected with /autocomplete link.
+						$('#displayUser').empty(); // - Keeps the div #displayUser empty, otherwise the result will print out under neath each other.
 
-						if(results.length !== 0){
-							results.forEach(function (results){
-							var li = $('<li>');
-							li.html(results.firstname + " " + results.lastname);
-							$('#displayUser').append(li);
-							});
-						};
+						results.forEach(function (results){ //- echt result will be printed out
+						var li = $('<li>'); //- jQuery list element is stored in variable li
+						li.html(results.firstname + " " + results.lastname); //- the result will be printed as a list in the HTML document
+						$('#displayUser').append(li); //- the list items will be added to the div #displayUser
+						});
 						});
 					});
 				});

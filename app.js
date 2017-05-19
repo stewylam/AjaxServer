@@ -37,25 +37,26 @@ app.get('/search', (req, res) => {
 // Ajax - Live Search
 app.post('/autocomplete', (req, res) => {
     
-    var input = req.body.input;
+    var input = req.body.input; // input of the searchbar is stored in variable input
     
-    findUsers(input, function (results) {
+    findUsers(input, function (results) { // the function findUsers is called, the result is being send to the pug file.
     	res.send(results);
     });
 
     function findUsers(input, onComplete) {
     	fs.readFile('./users.json', 'utf-8', (err, data) => {
-    		user = JSON.parse(data);
+    		var user = JSON.parse(data);
 
     		var results = [];
 
+    		// for echt element in the array from variable user there's a function assigned.
     		user.forEach(function (users){
     			if (users.firstname.startsWith(input) || users.lastname.startsWith(input)) {
-    				results.push(users)
+    				results.push(users) // if the input which is typed in starts with one of the first or last name, the user information will be pushed to the variable result. And that will be send to the pug file to show.
     			}
     		});
 
-    		onComplete(results);
+    	 onComplete(results); // callback function onComplete
     	});
     }
 });
