@@ -11,7 +11,7 @@ app.set('views', './src/views');
 app.set('view engine', 'pug');
 
 
-// part 0: route 1: renders a page that displays all your users. The JSON content pasen naar een .pug file. JSON file parsen.
+// renders a page that displays all your users. The JSON content pasen naar een .pug file. JSON file parsen.
 
 app.get('/', (req, res) => {
 	
@@ -28,15 +28,21 @@ app.get('/', (req, res) => {
 });
 
 
-// Part 1 Create two more routes:
-// route 2: renders a page that displays a form which is your search bar.*/
+// renders a page that displays a form which is your search bar.*/
 
 app.get('/search', (req, res) => {
     res.render('form') // the form in PUG gets rendered to HTML
 })
+/*
+// Ajax - Live Search
+app.get('/search', (req, res) => {
+    res.render('form')
+})*/
 
-// route 3: takes in the post request from your form, then displays matching users on a new page. Users should be matched based on whether either their first or last name contains the input string.
 
+
+
+// takes in the post request from your form, then displays matching users on a new page. Users should be matched based on whether either their first or last name contains the input string.
 
 app.post('/search', (req, res) => {
 
@@ -76,8 +82,7 @@ app.post('/search', (req, res) => {
         res.send('post request received')
     }*/
 
-// Part 2 Create two more routes:
-// route 4: renders a page with three forms on it (first name, last name, and email) that allows you to add new users to the users.json file.
+// renders a page with three forms on it (first name, last name, and email) that allows you to add new users to the users.json file.
 	
 app.get('/adduser', (req, res) => {
 
@@ -85,7 +90,7 @@ app.get('/adduser', (req, res) => {
 });
 
 
-// route 5: takes in the post request from the 'create user' form, then adds the user to the users.json file. Once that is complete, redirects to the route that displays all your users (from part 0).
+// takes in the post request from the 'create user' form, then adds the user to the users.json file. Once that is complete, redirects to the route that displays all your users (from part 0).
 
 app.post('/adduser', (req, res) => {
 
