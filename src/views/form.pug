@@ -1,0 +1,12 @@
+doctype html
+html
+	head
+	body
+		h2 Search for User
+		p Type in the first or last name of user:
+		form(action='/search', method='post')
+			p First or Last Name:
+			input(type='text', name='name')
+			br
+			br
+			input(type='submit', value='Search')

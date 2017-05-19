@@ -1,0 +1,20 @@
+doctype html
+html
+	head
+	body
+		h2 User Information Apps
+		br
+		each user in users
+			p <b>Name:</b> #{user.firstname} #{user.lastname}
+			p <b>Email:</b> #{user.email}
+			<br />
+
+//- each object in object
+//- each element in the array
+
+
+
+//- This also works! Alternative answer:
+//- 		for user, i in users
+//- 			p <b>Name:</b> #{users[i].firstname} #{users[i].lastname}
+//- 			p <b>Email:</b> #{users[i].email}
